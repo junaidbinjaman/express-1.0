@@ -1,23 +1,21 @@
-const express = require('express');
-
+const express = require("express");
 
 const app = express();
 
-const router = express.Router({
-  caseSensitive: false
-});
+app.set('view engine', 'ejs')
 
-app.use(router)
-
-
- router.get('/home', (req, res) => {
-  res.send('This is home page')
-})
-
-app.post('/', (req, res) => { 
-  res.send('This is home page with post request')
-})
+app
+  .route("/about/mission")
+  .get((req, res) => {
+    res.render("pages/about");
+  })
+  .post((req, res) => {
+    res.send("Welcome to application home post");
+  })
+  .put((req, res) => {
+    res.send("Welcome to application home put");
+  });
 
 app.listen(3000, () => {
-  console.log('listening on port 3000');
-})
+  console.log("listening on port 3000");
+});
