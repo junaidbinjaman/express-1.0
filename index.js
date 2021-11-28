@@ -4,18 +4,15 @@ const app = express();
 
 app.set('view engine', 'ejs')
 
-app
-  .route("/about/mission")
-  .get((req, res) => {
-    res.render("pages/about");
-  })
-  .post((req, res) => {
-    res.send("Welcome to application home post");
-  })
-  .put((req, res) => {
-    res.send("Welcome to application home put");
-  });
+app.get('/test', (req, res) => {
+  res.send('Hello, World')
+})
 
+app.get('/about', (req, res) => {
+  res.set('platform', 'Learn with Jwolt')
+  console.log(res.get('platform'));
+  res.end()
+})
 app.listen(3000, () => {
   console.log("listening on port 3000");
 });
