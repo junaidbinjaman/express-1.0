@@ -1,20 +1,25 @@
 const express = require("express");
+const cookieParser = require("cookie-parser");
+const handler = require("./handle");
 
 const app = express();
+app.use(express.json());
+app.use(cookieParser());
 
-app.set('view engine', 'ejs')
+const adminRouter = express.Router();
+adminRouter.get("/dashboard", (req, res) => {
+  console.log(req.method);
+  res.send("We are in admin dashboard");
+});
 
-app
-  .route("/about/mission")
-  .get((req, res) => {
-    res.render("pages/about");
-  })
-  .post((req, res) => {
-    res.send("Welcome to application home post");
-  })
-  .put((req, res) => {
-    res.send("Welcome to application home put");
-  });
+app.use("/admin", adminRouter);
+
+app.get("/user/:id", handler);
+
+app.post("/user", (req, res) => {
+  console.log(req.headers['firstame']);
+  res.send("Hello, World Post");
+});
 
 app.listen(3000, () => {
   console.log("listening on port 3000");
